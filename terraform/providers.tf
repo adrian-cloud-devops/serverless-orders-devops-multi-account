@@ -14,8 +14,8 @@ terraform {
 }
 
 provider "aws" {
-  alias   = "api"
-  region  = var.aws_region
+  alias  = "api"
+  region = var.aws_region
 
   assume_role {
     role_arn = "arn:aws:iam::${var.account_a_api_id}:role/${var.terraform_deploy_role_name}"
@@ -23,9 +23,9 @@ provider "aws" {
 }
 
 provider "aws" {
-  alias   = "data"
-  region  = var.aws_region
-  
+  alias  = "data"
+  region = var.aws_region
+
   assume_role {
     role_arn = "arn:aws:iam::${var.account_b_data_id}:role/${var.terraform_deploy_role_name}"
   }
