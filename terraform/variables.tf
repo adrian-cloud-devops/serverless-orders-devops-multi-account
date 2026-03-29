@@ -15,7 +15,7 @@ variable "account_b_data_id" {
 }
 
 variable "terraform_deploy_role_name" {
-  description = "Bootstrap role name used by Terraform from tools account"
+  description = "Bootstrap role name used by Terraform from tools-account"
   type        = string
   default     = "TerraformDeployRole"
 }
