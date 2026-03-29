@@ -20,6 +20,11 @@ jobs:
   terraform:
     runs-on: ubuntu-latest
 
+    env:
+      TF_VAR_account_a_api_id: ${{ vars.TF_VAR_account_a_api_id }}
+      TF_VAR_account_b_data_id: ${{ vars.TF_VAR_account_b_data_id }}
+      TF_VAR_aws_region: ${{ vars.TF_VAR_aws_region }}
+
     defaults:
       run:
         working-directory: terraform
@@ -47,4 +52,4 @@ jobs:
         run: terraform validate
 
       - name: Terraform Plan
-        run: terraform plan -no-color
+        run: terraform plan -no-color -input=false
