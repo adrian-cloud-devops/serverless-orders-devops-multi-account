@@ -1,4 +1,4 @@
-name: Terraform Plan
+name: Terraform Checks and Plan
 
 on:
   pull_request:
@@ -17,7 +17,37 @@ permissions:
   contents: read
 
 jobs:
-  terraform:
+  terraform-pr-checks:
+    if: github.event_name == 'pull_request'
+    runs-on: ubuntu-latest
+
+    env:
+      TF_VAR_account_a_api_id: ${{ vars.TF_VAR_account_a_api_id }}
+      TF_VAR_account_b_data_id: ${{ vars.TF_VAR_account_b_data_id }}
+      TF_VAR_aws_region: ${{ vars.TF_VAR_aws_region }}
+
+    defaults:
+      run:
+        working-directory: terraform
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Setup Terraform
+        uses: hashicorp/setup-terraform@v3
+
+      - name: Terraform Format Check
+        run: terraform fmt -check -recursive
+
+      - name: Terraform Init (without backend)
+        run: terraform init -backend=false
+
+      - name: Terraform Validate
+        run: terraform validate
+
+  terraform-plan:
+    if: github.event_name == 'push'
     runs-on: ubuntu-latest
 
     env:
