@@ -30,6 +30,12 @@ def to_serializable(obj):
     return obj
 
 def lambda_handler(event, context):
+
+    #  TEST ALERTU — poza try/except
+    order_id = event.get("pathParameters", {}).get("id")
+    if order_id == "trigger-alarm":
+        raise Exception("test alarm for get_order")
+
     try:
         # --- Walidacja pathParameters ---
         if "pathParameters" not in event or not event["pathParameters"]:
