@@ -25,3 +25,8 @@ variable "dynamodb_table_name" {
 variable "common_tags" {
   type = map(string)
 }
+
+variable "log_retention_in_days" {
+  type    = number
+  default = 14
+}

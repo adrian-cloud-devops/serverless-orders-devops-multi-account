@@ -52,13 +52,14 @@ module "create_order_lambda" {
     aws = aws.api
   }
 
-  function_name        = "${local.name_prefix}-create-order"
-  role_arn             = module.iam_api_role.role_arn
-  source_file          = "${path.root}/lambdas/create_order/lambda_function.py"
-  output_zip           = "${path.root}/build/create_order.zip"
-  data_access_role_arn = module.iam_data_role.role_arn
-  dynamodb_table_name  = module.dynamodb.table_name
-  common_tags          = local.common_tags
+  function_name         = "${local.name_prefix}-create-order"
+  role_arn              = module.iam_api_role.role_arn
+  source_file           = "${path.root}/lambdas/create_order/lambda_function.py"
+  output_zip            = "${path.root}/build/create_order.zip"
+  data_access_role_arn  = module.iam_data_role.role_arn
+  dynamodb_table_name   = module.dynamodb.table_name
+  common_tags           = local.common_tags
+  log_retention_in_days = 14
 }
 
 module "get_order_lambda" {
@@ -68,13 +69,14 @@ module "get_order_lambda" {
     aws = aws.api
   }
 
-  function_name        = "${local.name_prefix}-get-order"
-  role_arn             = module.iam_api_role.role_arn
-  source_file          = "${path.root}/lambdas/get_order/lambda_function.py"
-  output_zip           = "${path.root}/build/get_order.zip"
-  data_access_role_arn = module.iam_data_role.role_arn
-  dynamodb_table_name  = module.dynamodb.table_name
-  common_tags          = local.common_tags
+  function_name         = "${local.name_prefix}-get-order"
+  role_arn              = module.iam_api_role.role_arn
+  source_file           = "${path.root}/lambdas/get_order/lambda_function.py"
+  output_zip            = "${path.root}/build/get_order.zip"
+  data_access_role_arn  = module.iam_data_role.role_arn
+  dynamodb_table_name   = module.dynamodb.table_name
+  common_tags           = local.common_tags
+  log_retention_in_days = 14
 }
 
 module "api_gateway" {
@@ -90,4 +92,21 @@ module "api_gateway" {
   get_order_lambda_arn       = module.get_order_lambda.invoke_arn
   get_order_function_name    = module.get_order_lambda.function_name
   common_tags                = local.common_tags
+}
+
+module "observability" {
+  source = "./modules/observability"
+
+  providers = {
+    aws = aws.api
+  }
+
+  common_tags              = local.common_tags
+  alert_email              = var.alert_email
+  create_order_lambda_name = module.create_order_lambda.function_name
+  get_order_lambda_name    = module.get_order_lambda.function_name
+  api_gateway_id           = module.api_gateway.api_id
+  lambda_error_threshold   = var.lambda_error_threshold
+  alarm_evaluation_periods = var.alarm_evaluation_periods
+  alarm_period_seconds     = var.alarm_period_seconds
 }

@@ -25,6 +25,7 @@ jobs:
       TF_VAR_account_a_api_id: ${{ vars.TF_VAR_account_a_api_id }}
       TF_VAR_account_b_data_id: ${{ vars.TF_VAR_account_b_data_id }}
       TF_VAR_aws_region: ${{ vars.TF_VAR_aws_region }}
+      TF_VAR_alert_email: ${{ vars.TF_VAR_alert_email}}
 
     defaults:
       run:
@@ -54,6 +55,7 @@ jobs:
       TF_VAR_account_a_api_id: ${{ vars.TF_VAR_account_a_api_id }}
       TF_VAR_account_b_data_id: ${{ vars.TF_VAR_account_b_data_id }}
       TF_VAR_aws_region: ${{ vars.TF_VAR_aws_region }}
+      TF_VAR_alert_email: ${{ vars.TF_VAR_alert_email}}
 
     defaults:
       run:
