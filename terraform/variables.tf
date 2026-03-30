@@ -42,3 +42,26 @@ variable "get_order_source_file" {
   type        = string
   default     = "../lambdas/get_order/lambda_function.py"
 }
+
+variable "alert_email" {
+  description = "Email address for SNS alerts"
+  type        = string
+}
+
+variable "lambda_error_threshold" {
+  description = "Threshold for Lambda error alarms"
+  type        = number
+  default     = 1
+}
+
+variable "alarm_evaluation_periods" {
+  description = "Number of evaluation periods for alarms"
+  type        = number
+  default     = 1
+}
+
+variable "alarm_period_seconds" {
+  description = "Period for alarm evaluation in seconds"
+  type        = number
+  default     = 300
+}
