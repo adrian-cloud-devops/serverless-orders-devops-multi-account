@@ -1,4 +1,4 @@
-# Serverless Orders — Multi-Account AWS Architecture
+![SNS Email](assets/sprint-05-email-notification.png)# Serverless Orders — Multi-Account AWS Architecture
 
 ![Terraform](https://img.shields.io/badge/Terraform-1.5+-purple?logo=terraform)
 ![AWS](https://img.shields.io/badge/AWS-Serverless-orange?logo=amazon-aws)
@@ -20,11 +20,19 @@ A production-oriented serverless order management API built on a multi-account A
 
 ## Project Overview
 
-This project implements a serverless order management API using a multi-account AWS architecture.
+This project implements a serverless order management API across three isolated
+AWS accounts — separating compute, data, and deployment into independent
+environments with no shared credentials between them.  
 
-Compute and data layers are separated across two dedicated AWS accounts, with a third account used exclusively for infrastructure deployment. All cross-account access is performed via STS AssumeRole — no static credentials are shared between accounts.
+The architecture reflects patterns used in regulated or security-focused
+production environments where blast radius reduction and auditability are critical.
+Every cross-account interaction uses temporary STS credentials, the CI/CD
+pipeline authenticates via OIDC without storing any AWS secrets, and the
+entire infrastructure is reproducible from a single `terraform apply`.  
 
-The infrastructure is built incrementally through five development sprints, reflecting how real-world cloud systems evolve from a manual proof-of-concept to a fully automated, observable platform.
+The system evolves across five sprints — from a manually validated proof of
+concept to a fully automated, observable platform — documenting real failures
+and design decisions at each stage.
 
 **What this project covers:**
 
@@ -47,19 +55,8 @@ The system separates responsibilities across three AWS accounts:
 | Account A — Application | Compute layer | API Gateway, Lambda |
 | Account B — Data | Data layer | DynamoDB |
 | Account C — DevOps | Deployment | Terraform, CI/CD |
-```text
-Client
-  │
-  ▼
-API Gateway (Account A)
-  │
-  ▼
-Lambda (Account A)
-  │
-  │ STS AssumeRole
-  ▼
-DynamoDB (Account B)
-```
+
+![Architecture Diagram](docs/sprints/assets/architecture-diagram.png)
 
 Terraform is executed from Account C and deploys into Accounts A and B using AssumeRole — no credentials are shared directly between accounts.
 
@@ -133,9 +130,9 @@ If you want to understand how and why the system was built, start there.
 |---|---|---|
 | [Sprint 01](docs/sprints/sprint-01-manual-setup.md) | Manual setup | Architecture validation without IaC |
 | [Sprint 02](docs/sprints/sprint-02-terraform-automation.md) | Terraform | Multi-account IaC, provider AssumeRole |
-| [Sprint 03](docs/sprints/sprint-03-remote-state.md) | State management | Remote state, locking, modularization |
-| [Sprint 04](docs/sprints/sprint-04-cicd.md) | CI/CD | Automated deployments via GitHub Actions |
-| [Sprint 05](docs/sprints/sprint-05-monitoring.md) | Observability | CloudWatch Logs, metrics, alerting |
+| [Sprint 03](docs/sprints/sprint-03-terraform-backend-modularization.md) | State management | Remote state, locking, modularization |
+| [Sprint 04](docs/sprints/sprint-04-sprint-04-ci-cd-github-actions-oidc.md) | CI/CD | Automated deployments via GitHub Actions |
+| [Sprint 05](docs/sprints/sprint-05-observability-alerting.md) | Observability | CloudWatch Logs, metrics, alerting |
 
 ---
 
