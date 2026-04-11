@@ -1,6 +1,6 @@
-[← Previous: Sprint-02 Terraform](sprint-02-sprint-02-terraform-automation.md)
-[Back to README](../../README.md)
-[Next: Sprint-04 CI/CD →](sprint-04-cicd.md)
+[← Previous: Sprint-02 Terraform](sprint-02-terraform-automation.md)  
+[Back to README](../../README.md)  
+[Next: Sprint-04 CI/CD →](sprint-04-ci-cd-github-actions-oidc.md)
 
 # Sprint 03 — Remote State, State Locking and Modular Refactor
 
@@ -17,10 +17,10 @@ prevented, and how the codebase is structured for long-term maintainability.
 
 ## Objectives
 
-- move Terraform state from local filesystem to S3
-- introduce state locking via DynamoDB
-- refactor the flat configuration into reusable modules
-- migrate existing state safely to avoid resource recreation
+- Move Terraform state from local filesystem to S3
+- Introduce state locking via DynamoDB
+- Refactor the flat configuration into reusable modules
+- Migrate existing state safely to avoid resource recreation
 
 ---
 
@@ -44,19 +44,19 @@ Terraform uses IAM roles and **STS AssumeRole**.
 
 This enables:
 
-- centralized infrastructure management
-- clear separation between runtime and deployment accounts
-- improved security boundaries between environments 
+- Centralized infrastructure management
+- Clear separation between runtime and deployment accounts
+- Improved security boundaries between environments 
 
 ## Why This Refactor Was Necessary
 
 The Terraform setup from Sprint 02 had several limitations that would become
 critical problems in any real-world environment:
 
-- state stored locally — not reproducible across machines, risk of state loss
-- no locking — concurrent `terraform apply` runs could corrupt state
-- monolithic configuration — no separation of concerns, difficult to extend
-- no safe path for future CI/CD — pipelines require remote state and locking
+- State stored locally — not reproducible across machines, risk of state loss
+- No locking — concurrent `terraform apply` runs could corrupt state
+- Monolithic configuration — no separation of concerns, difficult to extend
+- No safe path for future CI/CD — pipelines require remote state and locking
 
 Addressing these before introducing CI/CD in Sprint 04 was a deliberate decision.
 Automating a broken foundation creates pipeline instability and technical debt
@@ -242,6 +242,6 @@ automated Terraform deployments triggered by pull requests and merges.
 [⬆ Back to top](#sprint-03--remote-state-state-locking-and-modular-refactor)
 
 ---
-[← Previous: Sprint-02 Terraform](sprint-02-terraform-automation.md)
-[Back to README](../../README.md)
-[Next: Sprint-04 CI/CD →](sprint-04-cicd.md)
+[← Previous: Sprint-02 Terraform](sprint-02-terraform-automation.md)  
+[Back to README](../../README.md)  
+[Next: Sprint-04 CI/CD →](sprint-04-ci-cd-github-actions-oidc.md)
