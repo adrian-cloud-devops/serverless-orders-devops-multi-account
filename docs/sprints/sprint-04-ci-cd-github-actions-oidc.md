@@ -1,6 +1,6 @@
-[← Previous: Sprint-03 Remote State](sprint-03-remote-state.md)
-[Back to README](../../README.md)
-[Next: Sprint-05 Monitoring →](sprint-05-monitoring.md)
+[← Previous: Sprint-03 Remote State](sprint-03-terraform-backend-modularization.md)  
+[Back to README](../../README.md)  
+[Next: Sprint-05 Monitoring →](sprint-05-observability-alerting.md)
 
 # Sprint 04 — CI/CD Pipeline with GitHub Actions and OIDC
 
@@ -27,10 +27,10 @@ without any manual steps or stored credentials.
 
 ## Objectives
 
-- automate Terraform validation, planning, and deployment via GitHub Actions
-- implement OIDC authentication to eliminate static AWS credentials
-- enforce a pull request review gate before infrastructure changes are applied
-- document real pipeline failures and how they were resolved
+- Automate Terraform validation, planning, and deployment via GitHub Actions
+- Implement OIDC authentication to eliminate static AWS credentials
+- Enforce a pull request review gate before infrastructure changes are applied
+- Document real pipeline failures and how they were resolved
 
 ---
 
@@ -63,9 +63,9 @@ Account A / Account B
 
 Benefits over static credentials:
 
-- no access keys stored anywhere — nothing to rotate or leak
-- credentials are automatically scoped to the duration of the job
-- access is restricted at the IAM level to specific repositories and branches
+- No access keys stored anywhere — nothing to rotate or leak
+- Credentials are automatically scoped to the duration of the job
+- Access is restricted at the IAM level to specific repositories and branches
 
 ---
 
@@ -336,9 +336,9 @@ missing workflow runs.
 After completing the pipeline setup, the full developer workflow was tested
 end-to-end:
 
-- push to feature branch triggered Plan — output visible in GitHub Actions UI
-- pull request triggered Validation — `fmt`, `init`, `validate` passed
-- merge to main triggered Apply — infrastructure deployed successfully
+- Push to feature branch triggered Plan — output visible in GitHub Actions UI
+- Pull request triggered Validation — `fmt`, `init`, `validate` passed
+- Merge to main triggered Apply — infrastructure deployed successfully
 - API endpoints responded correctly after deployment
 
 ---
@@ -408,12 +408,12 @@ and `terraform validate` all green. No AWS access required at this stage.
 
 ## Limitations at This Stage
 
-- no manual approval gate before `terraform apply` — apply runs automatically
+- No manual approval gate before `terraform apply` — apply runs automatically
   on every merge to main
-- no plan output saved as artifact — plan from feature branch is not reused
+- No plan output saved as artifact — plan from feature branch is not reused
   during apply
-- no drift detection between deployments
-- no notifications on pipeline failure or successful deployment
+- No drift detection between deployments
+- No notifications on pipeline failure or successful deployment
 
 ---
 
@@ -428,6 +428,6 @@ and `terraform validate` all green. No AWS access required at this stage.
 [⬆ Back to top](#sprint-04--cicd-pipeline-with-github-actions-and-oidc)
 
 ---
-[← Previous: Sprint-03 Remote State](sprint-03-remote-state.md)
-[Back to README](../../README.md)
-[Next: Sprint-05 Monitoring →](sprint-05-monitoring.md)
+[← Previous: Sprint-03 Remote State](sprint-03-terraform-backend-modularization.md)  
+[Back to README](../../README.md)  
+[Next: Sprint-05 Monitoring →](sprint-05-observability-alerting.md)

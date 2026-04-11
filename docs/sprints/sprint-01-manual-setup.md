@@ -8,7 +8,7 @@
 The goal of Sprint 01 was to design and validate the core architecture without
 Infrastructure as Code, using only the AWS Console.
 
-Building manually first was a deliberate decision — it forces a deep understanding
+Building manually first was a deliberate decision, it forces a deep understanding
 of IAM trust relationships, STS behavior, and cross-account dependencies before
 any automation is introduced. Problems that would be obscured by Terraform error
 messages became immediately visible at this stage.
@@ -17,9 +17,9 @@ messages became immediately visible at this stage.
 
 ## Objectives
 
-- provision the core infrastructure manually across two AWS accounts
-- validate cross-account communication via STS AssumeRole
-- confirm the architecture works end-to-end before introducing automation
+- Provision the core infrastructure manually across two AWS accounts
+- Validate cross-account communication via STS AssumeRole
+- Confirm the architecture works end-to-end before introducing automation
 
 ---
 
@@ -109,20 +109,20 @@ Two Lambda functions were created — one per API operation.
 Handles `POST /orders` requests.
 
 Flow:
-1. receives order payload from API Gateway
-2. assumes `DataAccessRole` in Account B via STS
-3. writes the order item to DynamoDB using temporary credentials
-4. returns the created order ID to the client
+1. Receives order payload from API Gateway
+2. Assumes `DataAccessRole` in Account B via STS
+3. Writes the order item to DynamoDB using temporary credentials
+4. Returns the created order ID to the client
 
 ### `get_order`
 
 Handles `GET /orders/{id}` requests.
 
 Flow:
-1. receives order ID from API Gateway path parameter
-2. assumes `DataAccessRole` in Account B via STS
-3. queries DynamoDB for the matching item
-4. returns the order data to the client
+1. Receives order ID from API Gateway path parameter
+2. Assumes `DataAccessRole` in Account B via STS
+3. Queries DynamoDB for the matching item
+4. Returns the order data to the client
 
 Both functions use the same AssumeRole pattern — credentials are requested
 fresh on each invocation and are never stored or reused between calls.
@@ -147,9 +147,9 @@ DynamoDB — OrdersTable
 
 This pattern provides three important guarantees:
 
-- no static credentials are stored anywhere in the system
-- credentials expire automatically — no rotation needed
-- if Account A is compromised, the attacker still cannot access DynamoDB
+- No static credentials are stored anywhere in the system
+- Credentials expire automatically — no rotation needed
+- If Account A is compromised, the attacker still cannot access DynamoDB
   without going through the role boundary enforced by Account B
 
 ---
@@ -231,9 +231,9 @@ curl "https://<api-url>/orders/<orderId>"
 
 Validation confirmed:
 
-- orders are created and stored in DynamoDB (Account B)
-- orders can be retrieved via the API
-- cross-account access via STS works correctly
+- Orders are created and stored in DynamoDB (Account B)
+- Orders can be retrieved via the API
+- Cross-account access via STS works correctly
 - Lambda never holds long-lived credentials
 - DynamoDB in Account B is not directly accessible from Account A
 

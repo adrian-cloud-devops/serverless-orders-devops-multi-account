@@ -1,4 +1,4 @@
-[← Previous: Sprint-04 CI/CD](sprint-04-cicd.md)
+[← Previous: Sprint-04 CI/CD](sprint-04-ci-cd-github-actions-oidc.md)  
 [Back to README](../../README.md)
 
 # Sprint 05 — Observability and Alerting
@@ -275,13 +275,13 @@ publication delay before assuming a configuration problem.
 
 ## Limitations at This Stage
 
-- no log-based metrics — errors detectable only via Lambda `Errors` metric,
+- No log-based metrics — errors detectable only via Lambda `Errors` metric,
   not by log content pattern matching
-- no structured logging — Lambda outputs plain text, making log parsing
+- No structured logging — Lambda outputs plain text, making log parsing
   and filtering more difficult
-- no distributed tracing — individual Lambda invocations are not traceable
+- No distributed tracing — individual Lambda invocations are not traceable
   across the request lifecycle
-- no CloudWatch Dashboard — metrics and alarms exist but have no unified view
+- No CloudWatch Dashboard — metrics and alarms exist but have no unified view
 - alerting is email-only — no integration with Slack, PagerDuty, or similar
 
 ---
@@ -297,5 +297,5 @@ publication delay before assuming a configuration problem.
 [⬆ Back to top](#sprint-05--observability-and-alerting)
 
 ---
-[← Previous: Sprint-04 CI/CD](sprint-04-cicd.md)
+[← Previous: Sprint-04 CI/CD](sprint-04-ci-cd-github-actions-oidc.md)  
 [Back to README](../../README.md)

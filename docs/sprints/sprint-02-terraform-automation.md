@@ -1,6 +1,6 @@
-[← Previous: Sprint-01 Manual Setup](sprint-01-manual-setup.md)
-[Back to README](../../README.md)
-[Next: Sprint-03 Remote State →](sprint-03-remote-state.md)
+[← Previous: Sprint-01 Manual Setup](sprint-01-manual-setup.md)  
+[Back to README](../../README.md)  
+[Next: Sprint-03 Remote State and Modular Refactor →](sprint-03-terraform-backend-modularization.md)
 
 # Sprint 02 — Terraform Automation and Multi-Account Deployment
 
@@ -17,10 +17,10 @@ without sharing credentials directly between accounts.
 
 ## Objectives
 
-- re-implement all Sprint 01 infrastructure using Terraform
-- configure multi-account provider setup using AssumeRole
-- deploy from Account C into Accounts A and B
-- resolve real-world IAM and provider configuration issues encountered during automation
+- Re-implement all Sprint 01 infrastructure using Terraform
+- Ronfigure multi-account provider setup using AssumeRole
+- Deploy from Account C into Accounts A and B
+- Resolve real-world IAM and provider configuration issues encountered during automation
 
 ---
 
@@ -92,9 +92,9 @@ provider "aws" {
 This setup means:
 
 - Terraform authenticates once using Account C credentials
-- all resources in Account A use the `api` provider alias
-- all resources in Account B use the `data` provider alias
-- no credentials are passed between accounts directly
+- All resources in Account A use the `api` provider alias
+- All resources in Account B use the `data` provider alias
+- No credentials are passed between accounts directly
 
 Every resource block must explicitly declare which provider it uses:
 ```hcl
@@ -208,9 +208,9 @@ curl commands as Sprint 01.
 
 Validation confirmed:
 
-- all infrastructure deployed successfully via Terraform
+- All infrastructure deployed successfully via Terraform
 - API endpoints respond correctly
-- cross-account STS access works as expected
+- Cross-account STS access works as expected
 - DynamoDB data persists correctly across requests
 
 ---
@@ -252,6 +252,6 @@ and refactors the flat configuration into reusable modules.
 [⬆ Back to top](#sprint-02--terraform-automation-and-multi-account-deployment)
 
 ---
-[← Previous: Sprint-01 Manual Setup](sprint-01-manual-setup.md)
-[Back to README](../../README.md)
-[Next: Sprint-03 Remote State →](sprint-03-remote-state.md)
+[← Previous: Sprint-01 Manual Setup](sprint-01-manual-setup.md)  
+[Back to README](../../README.md)  
+[Next: Sprint-03 Remote State and Modular Refactor →](sprint-03-terraform-backend-modularization.md)
