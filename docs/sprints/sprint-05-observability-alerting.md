@@ -17,11 +17,11 @@ without manually checking logs.
 
 ## Objectives
 
-- define and manage CloudWatch Log Groups explicitly via Terraform
-- configure log retention to control storage costs
-- create CloudWatch Alarms based on Lambda error metrics
-- route alerts to an SNS topic with email delivery
-- validate the full alerting chain through controlled failure injection
+- Define and manage CloudWatch Log Groups explicitly via Terraform
+- Configure log retention to control storage costs
+- Create CloudWatch Alarms based on Lambda error metrics
+- Route alerts to an SNS topic with email delivery
+- Validate the full alerting chain through controlled failure injection
 
 ---
 
@@ -282,7 +282,7 @@ publication delay before assuming a configuration problem.
 - No distributed tracing — individual Lambda invocations are not traceable
   across the request lifecycle
 - No CloudWatch Dashboard — metrics and alarms exist but have no unified view
-- alerting is email-only — no integration with Slack, PagerDuty, or similar
+- Alerting is email-only — no integration with Slack, PagerDuty, or similar
 
 ---
 
